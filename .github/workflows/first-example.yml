@@ -9,10 +9,16 @@ jobs:
           - name: Checkout
             uses: actions/checkout@v4.1.4
         
-          - name: Welcome to GitHub Actions
-            run: echo "Welcome to GitHub Actions"
-          - name: list the files
-            run: ls
+          - name: List and read file
+            run: |
+                echo "Welcome to GitHub Actions"
+                ls -ltra
+                cat README.md
+          - name: Generate ASCII Artwork
+            run: cowsay -f dragon "Run for cover ... RAWAAR" >> dragon.txt 
+
+          #- name: list the files
+          #  run: ls
 
 
 
