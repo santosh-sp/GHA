@@ -2,7 +2,7 @@ name: Multiple Generate ASCII Art work
 on: push
 
 jobs:
-    build_job1:
+    build_job:
         runs-on: ubuntu-latest
         steps:
           - name: Checkout
@@ -14,12 +14,14 @@ jobs:
           - name: Execute cowsay script
             run:  cowsay -f dragon "Run for cover I am a DRAGON... RAWAAR" >> dragon.txt
         
-    build_job2:
+    test_job:
+        needs:   build_job
         runs-on: ubuntu-latest
         steps:
           - name: find text in file
             run: grep -i "dragon" dragon.txt
-    build_job3:
+    deploy_job:
+        needs:   [build_job,test_job]
         runs-on: ubuntu-latest
         steps:
            - name: list of files in directory
