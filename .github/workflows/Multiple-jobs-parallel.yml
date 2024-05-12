@@ -1,0 +1,29 @@
+name: Multiple Generate ASCII Art work
+on: push
+
+jobs:
+    build_job1:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout
+            uses: actions/checkout@v4
+          - name: get the list of files in directory 
+            run: ls -ltr
+          - name: Install cowsay 
+            run: sudo apt-get install cowsay -y
+          - name: Execute cowsay script
+            run:  cowsay -f dragon "Run for cover I am a DRAGON... RAWAAR" >> dragon.txt
+        
+    build_job2:
+        runs-on: ubuntu-latest
+        steps:
+          - name: find text in file
+            run: grep -i "dragon" dragon.txt
+    build_job3:
+        runs-on: ubuntu-latest
+        steps:
+           - name: list of files in directory
+             run: cat dragon.txt
+                      
+          
+
