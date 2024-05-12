@@ -8,7 +8,7 @@ jobs:
           - name: Checkout
             uses: actions/checkout@v4
           - name: Install Cowsay command
-            run:  sudo pat-get install cowsay -y
+            run:  sudo apt-get install cowsay -y
           - name: Execute Cowsay CMD
             run: cowsay -f dragon "Run for cover I am a DRAGON... RAWAAR" >> dragon.txt
           - name: check for dragon file existance 
