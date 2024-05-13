@@ -1,0 +1,25 @@
+name: Exploring env variables
+on: push
+env:
+    DOCKER_REGISTRY : docker.io
+    DOCKER_IMAGE: github-actions-nginx
+
+jobs:
+    docker_build_job:
+        runs-on: ubuntu:latest
+        steps:
+        - name: build docker image
+          run: docker build -t ${{env.DOCKER_REGISTRY}}/${{vars.DOCKER_USERNAME}}/${{env.DOCKER_IMAGE}}
+        - name: docker login
+          run: docker login --username=${{vars.DOCKER_USERNAME}} --password=${{secrets.DOCKER_PASSWORD}}
+        - name: docker publish
+          run: docker push docker.io/${{vars.DOCKER_USERNAME}}/${{env.DOCKER_IMAGE}}
+    
+    test_job:
+        needs: docker_build_job
+        runs-on: ubuntu:latest
+        steps:
+        - name: docker run 
+          run: docker run -p 8080:80 -d docker.io/${{vars.DOCKER_USERNAME}}/${{env.DOCKER_IMAGE}}
+
+          
